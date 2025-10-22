@@ -22,13 +22,6 @@ export const routes: Routes = [
         c=>c.Login
       )
   },
-  {
-    path:'header',
-    loadComponent:()=>
-      import('./view/header/header').then(
-        c=>c.Header
-      )
-  },
 
 
 ];

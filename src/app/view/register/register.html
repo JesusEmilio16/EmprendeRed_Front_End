@@ -1,5 +1,5 @@
 <div class=" flex justify-center items-center border-t p-20 ">
-    <form action="" class=" flex flex-col gap-3 rounded-lg p-10 items-center border">
+    <form (submit)="handleSubmit($event)" class=" flex flex-col gap-3 rounded-lg p-10 items-center border">
         <div class=" flex gap-2 justify-center items-center text-blue-400">
             <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor "  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-topology-star-ring-3"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 19a2 2 0 1 0 -4 0a2 2 0 0 0 4 0z" /><path d="M18 5a2 2 0 1 0 -4 0a2 2 0 0 0 4 0z" /><path d="M10 5a2 2 0 1 0 -4 0a2 2 0 0 0 4 0z" /><path d="M6 12a2 2 0 1 0 -4 0a2 2 0 0 0 4 0z" /><path d="M18 19a2 2 0 1 0 -4 0a2 2 0 0 0 4 0z" /><path d="M14 12a2 2 0 1 0 -4 0a2 2 0 0 0 4 0z" /><path d="M22 12a2 2 0 1 0 -4 0a2 2 0 0 0 4 0z" /><path d="M6 12h4" /><path d="M14 12h4" /><path d="M15 7l-2 3" /><path d="M9 7l2 3" /><path d="M11 14l-2 3" /><path d="M13 14l2 3" /><path d="M10 5h4" /><path d="M10 19h4" /><path d="M17 17l2 -3" /><path d="M19 10l-2 -3" /><path d="M7 7l-2 3" /><path d="M5 14l2 3" /></svg>
                 <h1 class="text-3xl font-bold  text-gray-800">Emprende<span class=" text-red-700">Red</span></h1>
@@ -8,24 +8,26 @@
             Registra tu Cuenta
         </h1>
         <!--nombre de usuario -->
-        <input type="text" placeholder="Primer Nombre" class=" p-2 rounded-md border border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-gray-700 w-full">
-        <input type="text" placeholder="Segundo Nombre" class=" p-2 rounded-md border border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-gray-700 w-full">
-        <input type="text" placeholder="Primer Apellido" class=" p-2 rounded-md border border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-gray-700 w-full">
-        <input type="text" placeholder="Segundo Apellido" class=" p-2 rounded-md border border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-gray-700 w-full">
+        <input type="text" name="name" placeholder="Primer Nombre" class=" p-2 rounded-md border border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-gray-700 w-full">
+        <input type="text" name="middleName" placeholder="Segundo Nombre" class=" p-2 rounded-md border border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-gray-700 w-full">
+        <input type="text" name="lastName" placeholder="Primer Apellido" class=" p-2 rounded-md border border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-gray-700 w-full">
+        <input type="text" name="lastName2" placeholder="Segundo Apellido" class=" p-2 rounded-md border border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-gray-700 w-full">
         <!-- datos personales -->
-         <input type="text" placeholder="Documento Identificación" class=" p-2 rounded-md border border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-gray-700 w-full">
+         <input type="text" name="documento" placeholder="Documento Identificación" class=" p-2 rounded-md border border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-gray-700 w-full">
          <div class=" flex gap-3 justify-center items-center w-full">
             <label for="sexo">Sexo:</label>
             <select id="sexo" name="sexo" class=" border-1 rounded-xl p-2 text-gray-700">
-                <option value="masculino">Masculino</option>
-                <option value="femenino">Femenino</option>
-                <option value="otro">Otro</option>
+                <option value="M">Masculino</option>
+                <option value="F">Femenino</option>
+                <option value="O">Otro</option>
              </select>
          </div>
         <!-- correo y contraseña -->
-        <input type="email" placeholder="Correo Electrónico" class=" p-2 rounded-md border border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-gray-700 w-full">
-        <input type="password" placeholder="Contraseña" class=" p-2 rounded-md border border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-gray-700 w-full">
-        <input type="password" placeholder="Confirmar Contraseña" class=" p-2 rounded-md border border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-gray-700 w-full">
+        <input type="email" name="email" placeholder="Correo Electrónico" class=" p-2 rounded-md border border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-gray-700 w-full">
+        <input type="password" name="password" placeholder="Contraseña" class=" p-2 rounded-md border border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-gray-700 w-full">
+        <input type="password"  placeholder="Confirmar Contraseña" class=" p-2 rounded-md border border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-gray-700 w-full">
+
+         <input type="text" name="phoneNumber" placeholder="numero de telefono" class=" p-2 rounded-md border border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-gray-700 w-full">
 
         <button class=" p-2 bg-orange-400 text-white font-sans rounded-md cursor-pointer px-18">Registrate</button>
 
@@ -39,7 +41,7 @@
                 <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-brand-google"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M20.945 11a9 9 0 1 1 -3.284 -5.997l-2.655 2.392a5.5 5.5 0 1 0 2.119 6.605h-4.125v-3h7.945z" /></svg>
             </button>
         </div>
-        <p>¿ya tienes una cuenta? <a href="" class=" text-blue-600 border-b-2">Inicia Sesión aqui </a></p>
+        <p>¿ya tienes una cuenta? <a routerLink="/login" class=" text-blue-600 border-b-2">Inicia Sesión aqui </a></p>
 
     </form>
 </div>
