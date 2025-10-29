@@ -23,5 +23,21 @@ export const routes: Routes = [
       )
   },
 
+  {
+    path:'business_post',
+    loadComponent:() =>
+      import('./view/business_post/business_post').then(
+        c=>c.Business_Post
+      )
+  },
+
+   {
+    path:'business_show',
+    loadComponent:() =>
+      import('./view/business_show/business_show').then(
+        c=>c.BusinessShow
+      )
+  },
+
 
 ];
