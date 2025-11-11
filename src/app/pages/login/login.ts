@@ -41,7 +41,7 @@ export class Login {
         localStorage.setItem('token', res.token ?? '');
         localStorage.setItem('user', JSON.stringify(res));
 
-        // redirigir al home o dashboard
+        // redirigir al home o dashboardddd
         this.router.navigate(['/']);
       },
       error: () => {
