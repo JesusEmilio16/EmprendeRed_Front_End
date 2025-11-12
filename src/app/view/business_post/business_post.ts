@@ -12,7 +12,6 @@ import { BusinessService } from '../../services/businnes_post';
 })
 export class Business_Post implements OnInit {
   newBusiness = {
-    nombreUsuario: '',
     name: '',
     direccion: '',
     barrio: '',
@@ -21,17 +20,23 @@ export class Business_Post implements OnInit {
 
   selectedFile: File | null = null;
 
-
   constructor(private businessService: BusinessService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    // Verificamos si hay usuario logueado
+    const userId = localStorage.getItem('userId');
+    if (!userId) {
+      alert('Debes iniciar sesión antes de publicar un negocio.');
+      window.location.href = '/login'; // o redirige según tus rutas
+    }
+  }
 
-  //proceso de crear emprendimeitno
-
+  // Manejar selección de imagen
   onFileSelected(event: any): void {
     this.selectedFile = event.target.files[0];
   }
 
+  // Guardar negocio
   saveBusiness(): void {
     if (
       !this.newBusiness.name ||
@@ -42,39 +47,50 @@ export class Business_Post implements OnInit {
       return;
     }
 
+    const userId = Number(localStorage.getItem('userId'));
+    if (!userId) {
+      alert('No se encontró el usuario logueado. Inicia sesión nuevamente.');
+      return;
+    }
+
+    
+    const businessData = {
+      name: this.newBusiness.name,
+      direccion: this.newBusiness.direccion,
+      barrio: this.newBusiness.barrio,
+      description: this.newBusiness.description,
+      user: { id: userId }, // 👈 Relación con el usuario logueado
+    };
+
+    //imagen vía multipart/form-data:
     const formData = new FormData();
-    formData.append('nombreUsuario', this.newBusiness.nombreUsuario);
     formData.append('name', this.newBusiness.name);
     formData.append('direccion', this.newBusiness.direccion);
     formData.append('barrio', this.newBusiness.barrio);
     formData.append('description', this.newBusiness.description);
-
+    formData.append('userId', userId.toString()); 
     if (this.selectedFile) {
       formData.append('image', this.selectedFile);
     }
-    
-    console.log(this.newBusiness.nombreUsuario)
-    console.log(this.newBusiness.name)
-    console.log(this.newBusiness.direccion)
-    console.log(this.newBusiness.barrio)
-    console.log(this.newBusiness.description)
 
+    console.log('Datos enviados:', formData);
+
+    // Enviar al servicio
     this.businessService.create(formData).subscribe({
       next: (res) => {
         console.log('✅ Negocio guardado:', res);
-        alert('Emprendimiento guardado correctamente');
+        alert('Emprendimiento guardado correctamente.');
         this.resetForm();
       },
       error: (err) => {
         console.error('❌ Error al guardar:', err);
-        alert('Error al guardar el emprendimiento');
+        alert('Error al guardar el emprendimiento.');
       },
     });
   }
 
   resetForm(): void {
     this.newBusiness = {
-      nombreUsuario: '',
       name: '',
       direccion: '',
       barrio: '',
@@ -82,4 +98,5 @@ export class Business_Post implements OnInit {
     };
     this.selectedFile = null;
   }
+ 
 }

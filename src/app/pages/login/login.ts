@@ -40,6 +40,7 @@ export class Login {
         // res.token ?? '' => guarda string vacío si no viene token (evita null)
         localStorage.setItem('token', res.token ?? '');
         localStorage.setItem('user', JSON.stringify(res));
+        localStorage.setItem('userId', res.idUser.toString()); //cambio maicol
 
         // redirigir al home o dashboardddd
         this.router.navigate(['/']);
