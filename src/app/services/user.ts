@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class User {
   private httpClient = inject(HttpClient);
-  private baseUrl = 'http://localhost:8080/usuarios2';
+  private baseUrl = 'https://emprenderedbackend-production.up.railway.app/usuarios2';
 
   register(userData: any): Observable<any> {
     return this.httpClient.post(this.baseUrl, userData);

@@ -16,7 +16,7 @@ export interface LoginResponse {
 export class AuthService {
 
   // URL del endpoint de login de tu backend
-  private apiUrl = 'http://localhost:8080/auth/login';
+  private apiUrl = 'https://emprenderedbackend-production.up.railway.app/auth/login';
 
   // HttpClient inyectado para hacer peticiones HTTP
   constructor(private http: HttpClient) {}

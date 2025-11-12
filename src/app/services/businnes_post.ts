@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class BusinessService {
-  private apiUrl = 'http://localhost:8080/api/business'; // tu endpoint backend
+  private apiUrl = 'https://emprenderedbackend-production.up.railway.app/api/business'; // tu endpoint backend
 
   constructor(private http: HttpClient) {}
 
