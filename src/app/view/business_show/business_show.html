@@ -21,7 +21,7 @@
         </div>
 
         <div class="flex  w-full gap-5">
-            <div class="ml-10 w-3/12 mt-10 ">
+            <!-- <div class="ml-10 w-3/12 mt-10 ">
                 <h2 class="text-xl font-semibold text-gray-800 pl-3">Filtrar Por</h2>
                 <div class=" mt-5 grid gap-y-3 p-5 rounded-md bg-gray-300/50">
                     <h3 class="text-gray-800 font-semibold ">Categoria</h3>
@@ -58,55 +58,24 @@
 
                 </div>
 
-            </div>
+            </div> -->
 
             <div class="w-full grid gap-y-5  mt-10 ">
-                <h2 class="text-xl font-semibold text-gray-800 ">Ultimos Emprendimientos</h2>
+                <h2 class=" flex text-2xl font-semibold text-gray-800 justify-center ">Ultimos Emprendimientos</h2>
 
                 <div
-                    class="flex gap-3 mr-5 inset-shadow-sm inset-shadow-indigo-500 rounded-xl transition-all duration-300 ease-in-out scale-100 shadow-md hover:scale-103 hover:shadow-lg">
+                    *ngFor="let business of businesses" class="flex gap-3 mx-5 inset-shadow-sm inset-shadow-indigo-500 rounded-xl transition-all duration-300 ease-in-out scale-100 shadow-md hover:scale-103 hover:shadow-lg">
                     <img class="rounded-lg m-3 w-48 h-48 object-cover"
-                        src="https://childfundbolivia.org/wp-content/uploads/2025/06/CF-Emprendimientos-carr-3-304x304-1.png"
+                        [src]="business.imagePath || 'https://via.placeholder.com/150'"
                         alt="Imagen del emprendimiento" />
                     <div class=" flex flex-col justify-center w-2/3">
-                        <p class="my-2 text-xl font-bold">Venta de Gallinas</p>
+                        <p class="my-2 text-xl font-bold">{{ business.name }}</p>
                         <p class="text-sm text-gray-700">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta veritatis
-                            eaque ratione nobis natus cumque eveniet nostrum quam laborum!
-                            Reprehenderit, aliquid adipisci.
+                            {{business.description }}
                         </p>
                     </div>
                 </div>
-                <div
-                    class="flex gap-3 mr-5 inset-shadow-sm inset-shadow-indigo-500 rounded-xl transition-all duration-300 ease-in-out scale-100 shadow-md hover:scale-103 hover:shadow-lg">
-                    <img class="rounded-lg m-3 w-48 h-48 object-cover"
-                        src="https://www.sura-am.com/sites/default/files/2024-12/GettyImages-1184265522.png"
-                        alt="Imagen del emprendimiento" />
-                    <div class="flex flex-col justify-center w-2/3">
-                        <p class="my-2 text-xl font-bold">Venta de Gallinas</p>
-                        <p class="text-sm text-gray-700">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta veritatis
-                            eaque ratione nobis natus cumque eveniet nostrum quam laborum!
-                            Reprehenderit, aliquid adipisci.
-                        </p>
-                    </div>
-                </div>
-                <div
-                    class="flex gap-3 mr-5 inset-shadow-sm inset-shadow-indigo-500 rounded-xl transition-all duration-300 ease-in-out scale-100 shadow-md hover:scale-103 hover:shadow-lg">
-                    <img class="rounded-lg m-3 w-48 h-48 object-cover"
-                        src="https://www.desarrollohumano.gob.ec/wp-content/uploads/2018/11/Feria-artesanal-promueve-emprendimientos-al-norte-de-Quito.png"
-                        alt="Imagen del emprendimiento" />
-                    <div class="flex flex-col justify-center w-2/3">
-                        <p class="my-2 text-xl font-bold">Venta de Gallinas</p>
-                        <p class="text-sm text-gray-700">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta veritatis
-                            eaque ratione nobis natus cumque eveniet nostrum quam laborum!
-                            Reprehenderit, aliquid adipisci.
-                        </p>
-                    </div>
-                </div>
-
-
+                
             </div>
 
         </div>
