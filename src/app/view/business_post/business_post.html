@@ -3,54 +3,39 @@
         <h1 class="font-bold text-4xl mt-10 text-shadow-gray-300 text-shadow-lg">Publicar tu Emprendimiento</h1>
         <p class="mr-12 mt-3 text-gray-500">Completa los siguientes datos para dar a conocer tu negocio</p>
 
-        <div class=" mt-10 w-5/8">
+        <form (ngSubmit)="saveBusiness()" #businessForm="ngForm" class=" mt-10 w-5/8">
             <h3 class="font-medium text-lg mb-5">Información Básica</h3>
             <input
                 class=" placeholder:text-gray-500 border border-blue-300 rounded-lg w-full p-3 bg-white hover:border-gray-400 cursor-pointer mb-5"
-                type="text" placeholder="Nombre de tu Negocio">
+                type="text" name="name" placeholder="Nombre de tu Negocio" [(ngModel)]="newBusiness.name" required>
             <br>
             <input
                 class="placeholder:text-gray-500  border border-blue-300 rounded-lg w-full p-3 bg-white hover:border-gray-400 cursor-pointer mb-5"
-                type="text" name="" id="" placeholder="Ingresa tu Direccion">
+                type="text" name="direccion" id="" placeholder="Ingresa tu Direccion"
+                [(ngModel)]="newBusiness.direccion" required>
 
-            <div>
-                <label class=" font-medium text-lg" for="">Categoria Principal</label>
-                <select
-                    class="border border-gray-200 rounded-lg w-full p-3 bg-white hover:border-red-200 cursor-pointer mt-5 mb-5"
-                    name="" id="">
-                    <option value="">Opcion#</option>
-                    <option value="">Opcion#</option>
-                    <option value="">Opcion#</option>
-                    <option value="">Opcion#</option>
-                    <option value="">Opcion#</option>
-                </select>
-            </div>
-
-            <div>
-                <label class=" font-medium text-lg" for="">Barrio de Ubicacion</label>
-                <select
-                    class="border border-gray-200 p-3 rounded-lg w-full bg-white hover:border-red-200 cursor-pointer mt-5"
-                    name="" id="">
-                    <option value="">Opcion#</option>
-                    <option value="">Opcion#</option>
-                    <option value="">Opcion#</option>
-                    <option value="">Opcion#</option>
-                    <option value="">Opcion#</option>
-                </select>
-            </div>
+            <input
+                class="placeholder:text-gray-500  border border-blue-300 rounded-lg w-full p-3 bg-white hover:border-gray-400 cursor-pointer mb-5"
+                type="text" name="barrio" id="" placeholder="Ingresa tu Barrio" [(ngModel)]="newBusiness.barrio">
 
             <textarea
                 class="placeholder:text-gray-500 border border-gray-300 rounded-lg w-full p-3 h-32 bg-gray-100 hover:border-gray-400 cursor-pointer mt-5 mb-5"
-                placeholder="ingresa descripcion" id=""></textarea>
+                placeholder="ingresa descripcion" id="descripcion" name="description"
+                [(ngModel)]="newBusiness.description" required>
+            </textarea>
             <div>
                 <label class=" font-bold text-xl" for="">Agrega Imagen Representativa</label>
                 <input
                     class="border border-gray-200 rounded-lg w-full p-3 bg-white hover:border-blue-300 cursor-pointer mt-5"
-                    type="file" name="" id="">
+                    type="file" name="image" id="" (change)="onFileSelected($event)">
             </div>
-        </div>
 
-        <app-footer class="w-full" ></app-footer>
-        
+            <button type="submit"
+                class="bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 px-4 rounded-lg w-full mt-6 mb-8">
+                Guardar Emprendimiento
+            </button>
+        </form>
+
+        <app-footer class="w-full"></app-footer>
     </div>
 </body>

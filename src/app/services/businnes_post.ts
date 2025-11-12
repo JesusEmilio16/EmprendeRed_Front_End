@@ -1,0 +1,36 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class BusinessService {
+  private apiUrl = 'http://localhost:8080/api/business'; // tu endpoint backend
+
+  constructor(private http: HttpClient) {}
+
+ 
+  getAll(): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/all`);
+  }
+
+  getByUser(id_user: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/user/${id_user}`);
+  }
+
+  create(formData: FormData): Observable<any> {
+    return this.http.post(`${this.apiUrl}/create`, formData);
+  }
+
+  delete(id_business: number, id_user: number): Observable<any> {
+    // return this.http.delete(`${this.apiUrl}/${id_business}/${id_user}`);
+    return this.http.delete(`${this.apiUrl}/${id_business}/${id_user}`);
+  }
+
+  update(id_business: number, id_user: number, data: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}/${id_business}/${id_user}`, data);
+  }
+
+
+}
