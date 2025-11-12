@@ -84,7 +84,7 @@ export class Business_Post implements OnInit {
       },
       error: (err) => {
         console.error('❌ Error al guardar:', err);
-        alert('Error al guardar el emprendimiento.');
+        alert('Error al guardar el emprendimiento..');
       },
     });
   }
