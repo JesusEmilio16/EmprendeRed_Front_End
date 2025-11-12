@@ -1,30 +1,95 @@
-<div class=" flex justify-center items-center border-t p-20 ">
-    <form action="" class=" flex flex-col gap-3 rounded-lg p-10 items-center border">
-        <div class=" flex gap-2 justify-center items-center text-blue-400">
-            <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor "  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-topology-star-ring-3"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10 19a2 2 0 1 0 -4 0a2 2 0 0 0 4 0z" /><path d="M18 5a2 2 0 1 0 -4 0a2 2 0 0 0 4 0z" /><path d="M10 5a2 2 0 1 0 -4 0a2 2 0 0 0 4 0z" /><path d="M6 12a2 2 0 1 0 -4 0a2 2 0 0 0 4 0z" /><path d="M18 19a2 2 0 1 0 -4 0a2 2 0 0 0 4 0z" /><path d="M14 12a2 2 0 1 0 -4 0a2 2 0 0 0 4 0z" /><path d="M22 12a2 2 0 1 0 -4 0a2 2 0 0 0 4 0z" /><path d="M6 12h4" /><path d="M14 12h4" /><path d="M15 7l-2 3" /><path d="M9 7l2 3" /><path d="M11 14l-2 3" /><path d="M13 14l2 3" /><path d="M10 5h4" /><path d="M10 19h4" /><path d="M17 17l2 -3" /><path d="M19 10l-2 -3" /><path d="M7 7l-2 3" /><path d="M5 14l2 3" /></svg>
-                <h1 class="text-3xl font-bold  text-gray-800">Emprende<span class=" text-red-700">Red</span></h1>
+<div class="flex justify-center items-center border-t p-20">
+    <form
+        (ngSubmit)="login()"
+        class="flex flex-col gap-3 rounded-lg p-10 items-center border w-96"
+        novalidate>
+
+        <div class="flex gap-2 justify-center items-center text-blue-400">
+            <!-- logo tuyo -->
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="icon icon-tabler icons-tabler-outline icon-tabler-topology-star-ring-3">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                <path d="M10 19a2 2 0 1 0 -4 0a2 2 0 0 0 4 0z"/>
+                <path d="M18 5a2 2 0 1 0 -4 0a2 2 0 0 0 4 0z"/>
+                <path d="M10 5a2 2 0 1 0 -4 0a2 2 0 0 0 4 0z"/>
+                <path d="M6 12a2 2 0 1 0 -4 0a2 2 0 0 0 4 0z"/>
+                <path d="M18 19a2 2 0 1 0 -4 0a2 2 0 0 0 4 0z"/>
+                <path d="M14 12a2 2 0 1 0 -4 0a2 2 0 0 0 4 0z"/>
+                <path d="M22 12a2 2 0 1 0 -4 0a2 2 0 0 0 4 0z"/>
+                <path d="M6 12h4"/>
+                <path d="M14 12h4"/>
+                <path d="M15 7l-2 3"/>
+                <path d="M9 7l2 3"/>
+                <path d="M11 14l-2 3"/>
+                <path d="M13 14l2 3"/>
+                <path d="M10 5h4"/>
+                <path d="M10 19h4"/>
+                <path d="M17 17l2 -3"/>
+                <path d="M19 10l-2 -3"/>
+                <path d="M7 7l-2 3"/>
+                <path d="M5 14l2 3"/>
+            </svg>
+
+            <h1 class="text-3xl font-bold text-gray-800">
+                Emprende<span class="text-red-700">Red</span>
+            </h1>
         </div>
-        <h1 class=" text-2xl text-gray-800 font-semibold">
+
+        <h1 class="text-2xl text-gray-800 font-semibold">
             Inicia Sesión en tu Cuenta
         </h1>
 
-        <input type="text" placeholder="Correo Electrónico" class=" p-2 rounded-md border border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-gray-700 w-full">
+        <!-- ✅ email con ngModel -->
+        <input
+            type="text"
+            placeholder="Correo Electrónico"
+            [(ngModel)]="email"
+            name="email"
+            required
+            class="p-2 rounded-md border border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-gray-700 w-full"
+        >
 
-        <input type="text" placeholder="Contraseña" class=" p-2 rounded-md border border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-gray-700 w-full">
-        <a href="">¿olvidaste tu contraseña?</a>
+        <!-- ✅ password con ngModel -->
+        <input
+            type="password"
+            placeholder="Contraseña"
+            [(ngModel)]="password"
+            name="password"
+            required
+            class="p-2 rounded-md border border-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-gray-700 w-full"
+        >
 
-        <button class=" p-2 bg-orange-400 text-white font-sans rounded-md cursor-pointer px-18">Iniciar Sesión</button>
+        <a href="">¿Olvidaste tu contraseña?</a>
+
+        <!-- ✅ botón deshabilitado si loading -->
+        <button
+            class="p-2 bg-orange-400 text-white font-sans rounded-md cursor-pointer px-18 w-full"
+            [disabled]="loading">
+            {{ loading ? 'Iniciando...' : 'Iniciar Sesión' }}
+        </button>
+
+        <div *ngIf="errorMessage" class="text-red-600 text-sm text-center">
+            {{ errorMessage }}
+        </div>
 
         <div>-O inicia sesión con-</div>
 
         <div class="flex gap-5">
-            <button class=" p-2 bg-blue-600 text-white font-sans rounded-md cursor-pointer px-4">
-                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-brand-facebook"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M7 10v4h3v7h4v-7h3l1 -4h-4v-2a1 1 0 0 1 1 -1h3v-4h-3a5 5 0 0 0 -5 5v2h-3" /></svg>
+            <button class="p-2 bg-blue-600 text-white font-sans rounded-md cursor-pointer px-4">
+                <!-- Facebook -->
+                ...
             </button>
-            <button class=" p-2 bg-red-600 text-white font-sans rounded-md cursor-pointer px-4">
-                <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-brand-google"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M20.945 11a9 9 0 1 1 -3.284 -5.997l-2.655 2.392a5.5 5.5 0 1 0 2.119 6.605h-4.125v-3h7.945z" /></svg>
+            <button class="p-2 bg-red-600 text-white font-sans rounded-md cursor-pointer px-4">
+                <!-- Google -->
+                ...
             </button>
         </div>
-        <p>¿No tienes una cuenta? <a href="" class=" text-blue-600 border-b-2">Regístrate aqui </a></p>
+
+        <p>
+            ¿No tienes una cuenta?
+            <a href="" class="text-blue-600 border-b-2">Regístrate aquí</a>
+        </p>
     </form>
 </div>
