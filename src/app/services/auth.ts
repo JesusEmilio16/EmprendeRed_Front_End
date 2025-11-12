@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 // ✅ Interfaz correcta para que Angular sepa qué devuelve el backend
 export interface LoginResponse {
@@ -16,7 +17,8 @@ export interface LoginResponse {
 export class AuthService {
 
   // URL del endpoint de login de tu backend
-  private apiUrl = 'https://emprenderedbackend-production.up.railway.app/auth/login';
+  // private apiUrl = 'https://emprenderedbackend-production.up.railway.app/auth/login';
+  private apiUrl =`${environment.apiUrl}/auth/login`;
 
   // HttpClient inyectado para hacer peticiones HTTP
   constructor(private http: HttpClient) {}
