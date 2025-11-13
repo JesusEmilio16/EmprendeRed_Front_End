@@ -65,7 +65,7 @@
 
                 <div
                     *ngFor="let business of businesses" class="flex gap-3 mx-5 inset-shadow-sm inset-shadow-indigo-500 rounded-xl transition-all duration-300 ease-in-out scale-100 shadow-md hover:scale-103 hover:shadow-lg">
-                    <img class="rounded-lg m-3 w-48 h-48 object-cover" *ngIf="business.imagePath" [src]="'http://localhost:8080' + business.imagePath" width="150">
+                    <img class="rounded-lg m-3 w-48 h-48 object-cover" *ngIf="business.imagePath" [src]="'https://emprenderedbackend-production.up.railway.app' + business.imagePath" width="150">
                     <div class=" flex flex-col justify-center w-2/3">
                         <p class="my-2 text-xl font-bold">{{ business.name }}</p>
                         <p class="text-sm text-gray-700">
