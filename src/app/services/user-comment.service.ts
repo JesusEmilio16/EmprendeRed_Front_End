@@ -9,7 +9,7 @@ import { environment } from '../../environments/environment';
   providedIn: 'root'
 })
 export class UserCommentService {
-    private apiUrl = `${environment.apiUrl}/api/comments`;
+    private apiUrl = `${environment.apiUrl}/comments`;
 
   constructor(private http: HttpClient) {}
 

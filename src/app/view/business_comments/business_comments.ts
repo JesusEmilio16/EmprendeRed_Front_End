@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { environment } from '../../../environments/environment';
 
 interface UserCommentResponse {
   id: number;
@@ -51,8 +52,8 @@ export class BusinessComments implements OnInit {
   errorMessage: string = '';
   successMessage: string = '';
 
-  private apiUrl = 'http://localhost:8080/comments';
-  private businessApiUrl = 'http://localhost:8080/api/business/all';
+  private apiUrl = `${environment.apiUrl}/comments`;
+  private businessApiUrl = `${environment.apiUrl}/api/business/all`;
 
   constructor(
     private http: HttpClient,
