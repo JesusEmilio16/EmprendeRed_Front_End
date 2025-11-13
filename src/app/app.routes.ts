@@ -39,5 +39,12 @@ export const routes: Routes = [
       )
   },
 
+   {
+    path:'business_comments',
+    loadComponent:() =>
+      import('./view/business_comments/business_comments').then(
+        c=>c.BusinessComments
+      )
+  },
 
 ];
