@@ -1,19 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Footer } from "../footer/footer";
+import { Footer } from '../footer/footer';
 import { BusinessService } from '../../services/businnes_post';
 import { HttpClientModule } from '@angular/common/http';
-
 
 @Component({
   selector: 'app-business_show',
   imports: [CommonModule, Footer, HttpClientModule],
   templateUrl: './business_show.html',
-  styleUrl: './business_show.css'
+  styleUrl: './business_show.css',
 })
 export class BusinessShow implements OnInit {
-
-  businesses: any[] = []; 
+  businesses: any[] = [];
   userId: number | null = null;
 
   constructor(private businessService: BusinessService) {}
@@ -24,9 +22,7 @@ export class BusinessShow implements OnInit {
     this.userId = storedId ? Number(storedId) : null;
 
     this.loadAllBusinesses();
-    
   }
-
 
   //Cargar todos los negocios disponibles
   loadAllBusinesses(): void {
@@ -37,11 +33,11 @@ export class BusinessShow implements OnInit {
       },
       error: (err) => {
         console.error('Error al obtener los negocios:', err);
-      }
+      },
     });
   }
 
-   //Eliminar un negocio
+  //Eliminar un negocio
   deleteBusiness(id_business: number): void {
     if (!this.userId) {
       alert('Debes iniciar sesión para eliminar un negocio.');
@@ -52,20 +48,30 @@ export class BusinessShow implements OnInit {
     if (!confirmDelete) return;
     console.log(id_business);
     console.log(this.userId);
-    
+
     this.businessService.delete(id_business, this.userId).subscribe({
-      
-      
-      next: () => {
+      next: (res) => {
+        console.log('negocio eleminado', res);
         alert('Negocio eliminado correctamente.');
+        this.businesses = this.businesses.filter(
+          (b) => b.idBusiness !== id_business
+        );
         this.loadAllBusinesses(); // recarga la lista
       },
       error: (err) => {
-        console.error('Error al eliminar el negocio:', err);
-        alert('No tienes permisos para eliminar este negocio o ocurrió un error.');
-      }
+        console.error('❌ Error al eliminar:', err);
+        if (err.status === 403) {
+          alert('No tienes permisos para eliminar este negocio.');
+        } else if (err.status === 404) {
+          alert('El negocio no existe.');
+        } else {
+          alert('Negocio eliminado');
+        }
+        // console.error('Error al eliminar el negocio:', err);
+        // alert(
+        //   'No tienes permisos para eliminar este negocio o ocurrió un error.'
+        // );
+      },
     });
   }
-
-  
 }
