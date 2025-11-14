@@ -92,3 +92,17 @@ frontend/
 ├── package.json
 └── package-lock.json
 ```
+
+## Despliegue del proyecto del front-end en Vercel:
+
+   1. Lo primero es ingresar a Vercel y loguearse.
+
+   2. Lo siguiente es ir al apartado de "Proyect"
+
+   3. Instalar Github en Vercel
+
+   4. Luego se selecciona el repositorio
+
+   5. despues se le da al boton "Import"
+
+   6. Y por ultimo se le da al boton "Deployment" y ya con eso ya estaria el front-end desplegado, despues de todos eso paso encontreras el mensaje de la pagina
