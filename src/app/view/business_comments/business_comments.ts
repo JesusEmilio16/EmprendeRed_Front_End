@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
 import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 
@@ -33,7 +33,7 @@ interface Business {
 @Component({
   selector: 'app-business-comments',
   standalone: true,
-  imports: [CommonModule, FormsModule, HttpClientModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './business_comments.html',
   styleUrls: ['./business_comments.css']
 })
@@ -44,6 +44,11 @@ export class BusinessComments implements OnInit {
   selectedBusinessId: number = 0;
   newCommentContent: string = '';
   newCommentRating: number = 5;
+
+  editingCommentId: number | null = null;
+  editContent: string = '';
+  editRating: number = 5;
+  isUpdating: boolean = false;
 
   currentUserId: number = 0;
 
@@ -61,12 +66,10 @@ export class BusinessComments implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    // 🔐 Obtener usuario desde localStorage
     this.loadCurrentUser();
 
     if (this.currentUserId === 0) {
       this.errorMessage = 'Debes iniciar sesión para comentar';
-      // Opcional: redirigir al login después de 2 segundos
       setTimeout(() => {
         this.router.navigate(['/login']);
       }, 2000);
@@ -76,36 +79,31 @@ export class BusinessComments implements OnInit {
     this.loadBusinesses();
   }
 
-  // 🔐 Método para cargar el usuario actual
-loadCurrentUser(): void {
-  try {
-    // Intenta obtener el userId directamente
-    const userIdStr = localStorage.getItem('userId');
-    if (userIdStr) {
-      this.currentUserId = parseInt(userIdStr);
-      console.log('Usuario cargado:', this.currentUserId); // Para debug
-      return;
-    }
+  loadCurrentUser(): void {
+    try {
+      const userIdStr = localStorage.getItem('userId');
+      if (userIdStr) {
+        this.currentUserId = parseInt(userIdStr);
+        console.log('Usuario cargado:', this.currentUserId);
+        return;
+      }
 
-    // Si no está, intenta desde el objeto user
-    const userStr = localStorage.getItem('user');
-    if (userStr) {
-      const user = JSON.parse(userStr);
-      this.currentUserId = user.idUser || user.id || user.userId;
-      console.log('Usuario cargado desde user:', this.currentUserId); // Para debug
-      return;
-    }
+      const userStr = localStorage.getItem('user');
+      if (userStr) {
+        const user = JSON.parse(userStr);
+        this.currentUserId = user.idUser || user.id || user.userId;
+        console.log('Usuario cargado desde user:', this.currentUserId);
+        return;
+      }
 
-    // Si no encuentra nada, queda en 0
-    this.currentUserId = 0;
-    console.warn('No se encontró usuario en localStorage');
-  } catch (error) {
-    console.error('Error al cargar usuario:', error);
-    this.currentUserId = 0;
+      this.currentUserId = 0;
+      console.warn('No se encontró usuario en localStorage');
+    } catch (error) {
+      console.error('Error al cargar usuario:', error);
+      this.currentUserId = 0;
+    }
   }
-}
 
-  // Cargar lista de negocios
   loadBusinesses(): void {
     this.http.get<Business[]>(this.businessApiUrl).subscribe({
       next: (data) => {
@@ -125,14 +123,12 @@ loadCurrentUser(): void {
     });
   }
 
-  // Cuando se selecciona un negocio
   onBusinessSelected(): void {
     if (this.selectedBusinessId > 0) {
       this.loadComments();
     }
   }
 
-  // Cargar comentarios del negocio seleccionado
   loadComments(): void {
     this.isLoading = true;
     this.errorMessage = '';
@@ -150,9 +146,7 @@ loadCurrentUser(): void {
     });
   }
 
-  // Agregar comentario
   addComment(): void {
-    // Verificar que el usuario esté logueado
     if (this.currentUserId === 0) {
       this.errorMessage = 'Debes iniciar sesión para comentar';
       return;
@@ -196,7 +190,65 @@ loadCurrentUser(): void {
     });
   }
 
-  // Eliminar comentario
+  // 🆕 Activar modo edición
+  startEdit(comment: UserCommentResponse): void {
+    this.editingCommentId = comment.id;
+    this.editContent = comment.content;
+    this.editRating = comment.rating;
+  }
+
+  // 🆕 Cancelar edición
+  cancelEdit(): void {
+    this.editingCommentId = null;
+    this.editContent = '';
+    this.editRating = 5;
+    this.errorMessage = '';
+  }
+
+  // 🆕 Guardar edición
+  saveEdit(comment: UserCommentResponse): void {
+    if (this.editContent.trim().length < 10) {
+      this.errorMessage = 'El comentario debe tener al menos 10 caracteres';
+      return;
+    }
+
+    this.isUpdating = true;
+    this.errorMessage = '';
+
+    const request: UserCommentRequest = {
+      content: this.editContent,
+      rating: this.editRating,
+      businessId: comment.businessId,
+      userId: this.currentUserId
+    };
+
+    this.http.put<UserCommentResponse>(`${this.apiUrl}/${comment.id}`, request).subscribe({
+      next: (updatedComment) => {
+        // Actualizar el comentario en la lista
+        const index = this.comments.findIndex(c => c.id === comment.id);
+        if (index !== -1) {
+          this.comments[index] = updatedComment;
+        }
+
+        this.successMessage = '¡Comentario actualizado!';
+        this.isUpdating = false;
+        this.cancelEdit();
+
+        setTimeout(() => this.successMessage = '', 3000);
+      },
+      error: (err) => {
+        this.errorMessage = err.error?.error || 'Error al actualizar comentario';
+        this.isUpdating = false;
+        console.error('Error:', err);
+      }
+    });
+  }
+
+  // 🆕 Verificar si está en modo edición
+  isEditing(commentId: number): boolean {
+    return this.editingCommentId === commentId;
+  }
+
   deleteComment(commentId: number): void {
     if (!confirm('¿Eliminar este comentario?')) return;
 
@@ -213,7 +265,6 @@ loadCurrentUser(): void {
     });
   }
 
-  // Validar formulario
   isFormValid(): boolean {
     return this.currentUserId > 0 &&
            this.selectedBusinessId > 0 &&
@@ -221,12 +272,15 @@ loadCurrentUser(): void {
            !this.isSaving;
   }
 
-  // Verificar si es dueño del comentario
+  // 🆕 Validar formulario de edición
+  isEditFormValid(): boolean {
+    return this.editContent.trim().length >= 10 && !this.isUpdating;
+  }
+
   isOwner(comment: UserCommentResponse): boolean {
     return comment.userId === this.currentUserId;
   }
 
-  // Estrellas
   getStars(rating: number): number[] {
     return Array(Math.floor(rating)).fill(0);
   }
@@ -240,4 +294,23 @@ loadCurrentUser(): void {
     const hasHalf = rating % 1 >= 0.5;
     return Array(5 - fullStars - (hasHalf ? 1 : 0)).fill(0);
   }
+
+  // 🆕 Exportar a Excel
+  exportToExcel(): void {
+    const url = this.selectedBusinessId > 0
+      ? `${this.apiUrl}/export/excel?businessId=${this.selectedBusinessId}`
+      : `${this.apiUrl}/export/excel`;
+
+    window.open(url, '_blank');
+  }
+
+  // 🆕 Exportar a PDF
+  exportToPdf(): void {
+    const url = this.selectedBusinessId > 0
+      ? `${this.apiUrl}/export/pdf?businessId=${this.selectedBusinessId}`
+      : `${this.apiUrl}/export/pdf`;
+
+    window.open(url, '_blank');
+  }
+
 }
