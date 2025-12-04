@@ -18,7 +18,7 @@ export class ReportesService {
   }
 
   descargarExcel() {
-    return this.http.get(`${this.baseUrl}/export/excel`, {
+    return this.http.get(`${this.baseUrl}/reporte/excel`, {
       responseType: 'blob'
     });
   }
