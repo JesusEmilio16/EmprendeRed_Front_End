@@ -47,4 +47,12 @@ export const routes: Routes = [
       )
   },
 
+  {
+    path:'reporte',
+    loadComponent:() =>
+      import('./view/reporte/reporte').then(
+        c=>c.ReporteComponent
+      )
+  }
+
 ];
