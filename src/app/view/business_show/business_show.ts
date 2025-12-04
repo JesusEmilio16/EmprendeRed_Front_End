@@ -74,4 +74,34 @@ export class BusinessShow implements OnInit {
       },
     });
   }
+
+  // --- LÓGICA PARA DESCARGAR ARCHIVOS ---
+
+  downloadExcel(): void {
+    this.businessService.exportExcel().subscribe({
+      next: (blob) => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'Reporte_Emprendimientos.xlsx';
+        a.click();
+        window.URL.revokeObjectURL(url);
+      },
+      error: () => alert('Error al descargar Excel'),
+    });
+  }
+
+  downloadPdf(): void {
+    this.businessService.exportPdf().subscribe({
+      next: (blob) => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'Reporte_Emprendimientos.pdf';
+        a.click();
+        window.URL.revokeObjectURL(url);
+      },
+      error: () => alert('Error al descargar PDF'),
+    });
+  }
 }

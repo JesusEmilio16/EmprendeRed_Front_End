@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { BusinessService } from '../../services/businnes_post';
 import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
-
+import { ReporteComponent } from '../reporte/reporte';
 @Component({
   selector: 'app-main-page',
-  imports: [HttpClientModule,CommonModule],
+  imports: [HttpClientModule,CommonModule, ReporteComponent],
   templateUrl: './main-page.html',
   styleUrl: './main-page.css',
 })

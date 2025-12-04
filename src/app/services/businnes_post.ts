@@ -32,5 +32,15 @@ export class BusinessService {
     return this.http.put(`${this.apiUrl}/${id_business}/${id_user}`, data);
   }
 
+  // --- MÉTODOS NUEVOS PARA EXPORTAR ---
+  
+  exportExcel(): Observable<Blob> {
+    return this.http.get(`${this.apiUrl}/export/excel`, { responseType: 'blob' });
+  }
+
+  exportPdf(): Observable<Blob> {
+    return this.http.get(`${this.apiUrl}/export/pdf`, { responseType: 'blob' });
+  }
+
 
 }

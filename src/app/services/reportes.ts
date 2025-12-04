@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ReportesService {
 
-  private baseUrl = 'http://localhost:8080/usuarios2'; // Ajusta a tu backend
+  private baseUrl = '${environment.apiUrl}/usuarios2'; // Ajusta a tu backend
 
   constructor(private http: HttpClient) {}
 
