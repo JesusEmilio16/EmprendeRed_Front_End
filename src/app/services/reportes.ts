@@ -7,7 +7,7 @@ import { environment } from '../../environments/environment';
 })
 export class ReportesService {
 
-  private baseUrl = `${environment.apiUrl}/usuarios2`; // Ajusta a tu backend
+  private baseUrl = '${environment.apiUrl}/usuarios2'; // Ajusta a tu backend
 
   constructor(private http: HttpClient) {}
 
