@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ReportesService {
 
-  private baseUrl = 'http://localhost:8080/usuarios2'; // Ajusta a tu backend
+  private baseUrl = `${environment.apiUrl}/usuarios2`; // Ajusta a tu backend
 
   constructor(private http: HttpClient) {}
 
